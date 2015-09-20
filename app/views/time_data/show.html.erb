@@ -1,12 +1,37 @@
 <!-- Flush notification -->
+	<header>
+		<%= link_to 'Home', time_datum_path %>
+		<%= link_to 'Edit Member', edit_member_path %>
+	</header>
+
 <p id="notice"><%= notice %></p>
 
 <h1> Welcom! </h1>
 
 <%= @member.name %><br>
 
+START TIME<br>
+<%= @time_datum.start_time.strftime("%H:%M") %><br>
 
-<%= @time_datum[0].start_time.strftime("%H:%M") %><br>
+END TIME<br>
+<% if @time_datum.end_time.present? %>
+<%= @time_datum.end_time.strftime("%H:%M") %><br>
+<% end %>
 
+<%= form_for @time_datum, :id => 'end_time_form', url: time_datum_path do |t| %>
+
+	<%= t.hidden_field :end_time, :value => "" %>
+	<button onclick='send_end_time();'>END</button>
+<% end %>
 
 <%= link_to 'Back', time_data_path %>
+
+<script>
+	function send_end_time() {
+		var timeElm = window.document.getElementById('time_datum_end_time');
+		var t = new Date();
+		timeElm.value = t.getHours() + ":" + t.getMinutes();
+
+		window.document.getElementById('end_time_form').submit();
+	}
+</script>

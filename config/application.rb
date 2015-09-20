@@ -22,5 +22,9 @@ module Geuntae
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Setting time zone for recording
+    config.time_zone = 'Asia/Seoul'
+    config.active_record.default_timezone = :local
   end
 end

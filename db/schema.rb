@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920131545) do
+ActiveRecord::Schema.define(version: 20150920140427) do
 
   create_table "members", primary_key: "enum", force: :cascade do |t|
     t.string   "password_digest", limit: 255,   null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150920131545) do
 
   add_index "members", ["remember_token"], name: "index_members_on_remember_token", using: :btree
 
-  create_table "time_data", id: false, force: :cascade do |t|
+  create_table "time_data", force: :cascade do |t|
     t.string   "enum",           limit: 255, null: false
     t.date     "date",                       null: false
     t.time     "start_time"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20150920131545) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  add_index "time_data", ["enum"], name: "fk_id", using: :btree
 
   add_foreign_key "time_data", "members", column: "enum", primary_key: "enum", name: "fk_id", on_delete: :cascade
 end

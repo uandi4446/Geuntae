@@ -83,6 +83,7 @@ class TimeDataController < ApplicationController
       @member = current_member
       # @time_datum = TimeDatum.new
       @time_datum = TimeDatum.where("enum = ? AND date = ?", @current_member[:enum], Time.now.strftime("%Y-%m-%d"))
+      @time_datum = @time_datum[0]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

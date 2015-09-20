@@ -13,7 +13,11 @@
 
   <div class="field">
     <%= f.label :"Employ Number" %><br>
-    <%= f.text_field :enum %>
+    <% if @member.enum.present? %>
+      <%= f.text_field :enum, :disabled => true %>
+    <% else %>
+      <%= f.text_field :enum %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :password %><br>
@@ -25,19 +29,34 @@
   </div>  
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <% if @member.name.present? %>
+      <%= f.text_field :name, :disabled => true %>
+    <% else %>
+      <%= f.text_field :name %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :"Birthday" %><br>
-    <%= f.text_field :birth %>
+    <% if @member.birth.present? %>
+      <%= f.text_field :birth, :disabled => true %>
+    <% else %>
+      <%= f.text_field :birth %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :position %><br>
-    <%= f.text_area :position %>
+    <% if @member.position.present? %>
+      <%= f.text_field :position, :disabled => true %>
+    <% else %>
+      <%= f.text_area :position %>
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :department %><br>
-    <%= f.text_area :department %>
+    <% if @member.department.present? %>
+      <%= f.text_field :department, :disabled => true %>
+    <% else %>
+      <%= f.text_area :department %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

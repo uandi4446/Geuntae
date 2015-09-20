@@ -1,6 +1,7 @@
 require 'bcrypt'
 
 class Member < ActiveRecord::Base
+	has_many :time_data
 	before_save	{ self.enum = enum }
 	before_create	:create_remember_token
 
