@@ -1,0 +1,12 @@
+<!-- Flush notification -->
+<p id="notice"><%= notice %></p>
+
+<h1> Welcom! </h1>
+
+<%= @member.name %><br>
+
+
+<%= @time_datum[0].start_time.strftime("%H:%M") %><br>
+
+
+<%= link_to 'Back', time_data_path %>

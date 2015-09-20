@@ -1,0 +1,11 @@
+<h1>New Time Datum</h1>
+
+<%= form_for(@time_datum) do |t| %>
+  
+  <%= t.hidden_field(:enum, :value => @member[:enum]) %>
+  <%= t.hidden_field(:date, :value => Time.now.strftime("%Y-%m-%d")) %>
+  <button type="subt"><%= t.hidden_field(:start_time, :value => Time.now.strftime("%H:%M")) %>START</button>
+
+<% end %>
+
+<%= link_to 'Back', time_data_path %>

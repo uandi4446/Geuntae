@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employ Number:</strong>
+  <%= @member.enum %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @member.name %>
+</p>
+
+<p>
+  <strong>Birthday:</strong>
+  <%= @member.birth %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @member.position %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @member.department %>
+</p>
+
+<%= link_to 'Edit', edit_member_path(@member) %> |
+<%= link_to 'Back', members_path %>

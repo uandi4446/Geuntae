@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Time Data</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Enum</th>
+      <th>Date</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Avg start time</th>
+      <th>Avg end time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_data.each do |time_datum| %>
+      <tr>
+        <td><%= time_datum.enum %></td>
+        <td><%= time_datum.date %></td>
+        <td><%= time_datum.start_time %></td>
+        <td><%= time_datum.end_time %></td>
+        <td><%= time_datum.avg_start_time %></td>
+        <td><%= time_datum.avg_end_time %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time datum', new_time_datum_path %>
