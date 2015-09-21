@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
   get   'login' =>  'session#new'
   post  'login' =>  'session#create'
-  delete  'logout'  =>  'session#destroy'
+  get  'logout'  =>  'session#destroy'
+
+  get   'image' => 'image_path#new'
+
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
@@ -38,6 +41,9 @@ Rails.application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
+  resources :time_data do
+    resource :members
+  end
 
   # Example resource route with more complex sub-resources:
   #   resources :products do

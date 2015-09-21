@@ -1,6 +1,61 @@
+<% provide(:title, 'Edit Member') %>
 <h1>Editing Member</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= form_for(@member) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+        <%= f.label :"Employ Number" %>
+        <% if @member.enum.present? %>
+          <%= f.text_field :enum, :disabled => true %>
+        <% else %>
+          <%= f.text_field :enum, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+
+        <%= f.label :password_confirmation, "Confirm Password" %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+        <%= f.label :name %>
+        <% if @member.name.present? %>
+          <%= f.text_field :name, :disabled => true %>
+        <% else %>
+          <%= f.text_field :name, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :"Birthday" %>
+        <% if @member.birth.present? %>
+          <%= f.text_field :birth, :disabled => true %>
+        <% else %>
+          <%= f.text_field :birth, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :position %>
+        <% if @member.position.present? %>
+          <%= f.text_field :position, :disabled => true %>
+        <% else %>
+          <%= f.text_area :position, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :department %>
+        <% if @member.department.present? %>
+          <%= f.text_field :department, :disabled => true %>
+        <% else %>
+          <%= f.text_area :department, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :image_path, "Image Path" %>
+        <%= f.text_field :image_path %>
+       
+        <%= f.submit "Create employ account", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>
 
 <%= link_to 'Show', @member %> |
 <%= link_to 'Back', members_path %>

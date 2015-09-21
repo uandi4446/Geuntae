@@ -1,64 +1,52 @@
-<%= form_for(@member) do |f| %>
-  <% if @member.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
 
-      <ul>
-      <% @member.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= form_for(@member) do |f| %>
+      <%= render 'shared/error_messages' %>
 
-  <div class="field">
-    <%= f.label :"Employ Number" %><br>
-    <% if @member.enum.present? %>
-      <%= f.text_field :enum, :disabled => true %>
-    <% else %>
-      <%= f.text_field :enum %>
+        <%= f.label :"Employ Number" %>
+        <% if @member.enum.present? %>
+          <%= f.text_field :enum, :disabled => true %>
+        <% else %>
+          <%= f.text_field :enum, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+
+        <%= f.label :password_confirmation, "Confirm Password" %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+        <%= f.label :name %>
+        <% if @member.name.present? %>
+          <%= f.text_field :name, :disabled => true %>
+        <% else %>
+          <%= f.text_field :name, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :"Birthday" %>
+        <% if @member.birth.present? %>
+          <%= f.text_field :birth, :disabled => true %>
+        <% else %>
+          <%= f.text_field :birth, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :position %>
+        <% if @member.position.present? %>
+          <%= f.text_field :position, :disabled => true %>
+        <% else %>
+          <%= f.text_area :position, class: 'form-control' %>
+        <% end %>
+
+        <%= f.label :department %>
+        <% if @member.department.present? %>
+          <%= f.text_field :department, :disabled => true %>
+        <% else %>
+          <%= f.text_area :department, class: 'form-control' %>
+        <% end %>
+
+        <%= f.submit "Create employ account", class: "btn btn-primary" %>
+
     <% end %>
   </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :"Confirm Password" %><br>
-    <%= f.password_field :password_confirmation %>
-  </div>  
-  <div class="field">
-    <%= f.label :name %><br>
-    <% if @member.name.present? %>
-      <%= f.text_field :name, :disabled => true %>
-    <% else %>
-      <%= f.text_field :name %>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :"Birthday" %><br>
-    <% if @member.birth.present? %>
-      <%= f.text_field :birth, :disabled => true %>
-    <% else %>
-      <%= f.text_field :birth %>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <% if @member.position.present? %>
-      <%= f.text_field :position, :disabled => true %>
-    <% else %>
-      <%= f.text_area :position %>
-    <% end %>
-  </div>
-  <div class="field">
-    <% if @member.department.present? %>
-      <%= f.text_field :department, :disabled => true %>
-    <% else %>
-      <%= f.text_area :department %>
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

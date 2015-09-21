@@ -1,0 +1,10 @@
+<% provide(:title, 'Choose Image') %>
+<h1>Choose your own image</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<% @image_path.each do |i| %>
+			<%= image_tag "#{i.split('/').last}" %>
+		<% end %>
+	</div>
+</div>

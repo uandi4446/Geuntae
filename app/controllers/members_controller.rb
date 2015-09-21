@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_filter :authenticate, :except => [:index]
+  before_filter :authenticate, :except => [:index, :edit]
   before_action :set_member, only: [:show, :edit, :update, :destroy]
 
   # GET /members
@@ -29,7 +29,8 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'Member was successfully created.' }
+        flash[:success] = "Welcome to the Geuntae App!"
+        format.html { redirect_to @member }
         format.json { render :show, status: :created, location: @member }
       else
         format.html { render :new }
