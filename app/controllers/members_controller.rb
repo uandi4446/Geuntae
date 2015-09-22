@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
-  before_filter :authenticate, :except => [:index, :edit]
+  include SessionHelper
+  before_filter :authenticate, :except => [:index, :edit, :show]
   before_action :set_member, only: [:show, :edit, :update, :destroy]
 
   # GET /members
@@ -11,6 +12,11 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
+    current_member()
+    if @current_member.name != params[:id]
+      flash[:errors] = "It is not your information!"
+      redirect_to root_path
+    end
   end
 
   # GET /members/new
@@ -71,6 +77,6 @@ class MembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def member_params
-      params.require(:member).permit(:enum, :password, :password_confirmation, :name, :birth, :position, :department, :created_at, :updated_at)
+      params.require(:member).permit(:enum, :password, :password_confirmation, :name, :birth, :position, :department, :created_at, :updated_at, :image_path)
     end
 end

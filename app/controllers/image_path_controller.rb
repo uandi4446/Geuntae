@@ -8,6 +8,11 @@ class ImagePathController < ApplicationController
 
 	end
 
+  # POST /image/image_name
+  def send
+
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.

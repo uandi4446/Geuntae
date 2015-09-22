@@ -4,7 +4,16 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<% @image_path.each do |i| %>
-			<%= image_tag "#{i.split('/').last}" %>
+			<% image = "#{i.split('/').last}" %>
+			<a href="javascript:;" onclick="send_image_tag('<%= image %>');"><%= image_tag "#{i.split('/').last}" %></a>
 		<% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	function send_image_tag(image){
+		opener.document.getElementById("member_image_path").value = image;
+		window.close();
+		// window.open("about:blank","_self").close();
+	}
+</script>

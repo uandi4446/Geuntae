@@ -1,14 +1,8 @@
 <!-- Flush notification -->
-	<header>
-		<%= link_to 'Home', time_datum_path %>
-		<%= link_to 'Edit Member', edit_member_path %>
-	</header>
 
 <p id="notice"><%= notice %></p>
 
-<h1> Welcom! </h1>
-
-<%= @member.name %><br>
+<h1> Welcom! <%= @member.name %><br> </h1>
 
 START TIME<br>
 <%= @time_datum.start_time.strftime("%H:%M") %><br>
@@ -24,6 +18,8 @@ END TIME<br>
 	<button onclick='send_end_time();'>END</button>
 <% end %>
 
+<canvas id="cnvs" width="100" height="100" style="background-color: ghostwhite; border: 1px solid black"></canvas>
+
 <%= link_to 'Back', time_data_path %>
 
 <script>
@@ -33,5 +29,20 @@ END TIME<br>
 		timeElm.value = t.getHours() + ":" + t.getMinutes();
 
 		window.document.getElementById('end_time_form').submit();
+	}
+
+	window.onload = function() {
+		var cnvs=document.getElementById("cnvs");
+		if(cnvs.getContext) {
+			var ctx = cnvs.getContext("2d");
+
+			// Left top red quardrangle
+			ctx.fillStyle = "rgb(255,0,0)";
+			ctx.fillRect(10,10,50,50);
+			// Right bottom blue quardrangle
+			ctx.fillStyle = "rgba(0,0,255,0.5)";
+			ctx.fillRect(40,40,50,50);
+		}
+		else alert("It's not supported brower");
 	}
 </script>
