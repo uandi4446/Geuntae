@@ -1,11 +1,27 @@
-<h1>New Time Datum</h1>
+<html>
+	<head>
+		<% provide(:title, 'Start Time') %>
+	</head>
 
-<%= form_for(@time_datum) do |t| %>
-  
-  <%= t.hidden_field(:enum, :value => @member[:enum]) %>
-  <%= t.hidden_field(:date, :value => Time.now.strftime("%Y-%m-%d")) %>
-  <button type="subt"><%= t.hidden_field(:start_time, :value => Time.now.strftime("%H:%M")) %>START</button>
+	<body>
+		<h1>
+			Good Morning! <%=@member.name %><br>
+			<%= image_tag "#{@member.image_path}" %><br>
+		</h1>
 
-<% end %>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<%= form_for(@time_datum) do |t| %>
+	  
+	  				<!-- Using hidden field to set member and start time value.
+	  				!! I should make bigger button for START and arrange in the middle !! -->
+				  	<%= t.hidden_field(:enum, :value => @member[:enum]) %>
+				 	<%= t.hidden_field(:date, :value => Time.now.strftime("%Y-%m-%d")) %>
+			  		<button type="subt"><%= t.hidden_field(:start_time, :value => Time.now.strftime("%H:%M")) %>START</button>
+				<% end %>
+			</div>
+		</div>
 
-<%= link_to 'Back', time_data_path %>
+		<%= link_to 'Back', time_data_path %>
+	</body>
+</html>

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920185242) do
+ActiveRecord::Schema.define(version: 20150922162856) do
+
+  create_table "avg_time_data", force: :cascade do |t|
+    t.string   "enum",           limit: 255, null: false
+    t.time     "avg_start_time",             null: false
+    t.time     "avg_end_time",               null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "avg_time_data", ["enum"], name: "fk_id_avg", using: :btree
 
   create_table "members", primary_key: "enum", force: :cascade do |t|
     t.string   "password_digest", limit: 255,   null: false
@@ -28,17 +38,16 @@ ActiveRecord::Schema.define(version: 20150920185242) do
   add_index "members", ["remember_token"], name: "index_members_on_remember_token", using: :btree
 
   create_table "time_data", force: :cascade do |t|
-    t.string   "enum",           limit: 255, null: false
-    t.date     "date",                       null: false
+    t.string   "enum",       limit: 255, null: false
+    t.date     "date",                   null: false
     t.time     "start_time"
     t.time     "end_time"
-    t.time     "avg_start_time"
-    t.time     "avg_end_time"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "time_data", ["enum"], name: "fk_id", using: :btree
 
+  add_foreign_key "avg_time_data", "members", column: "enum", primary_key: "enum", name: "fk_id_avg", on_delete: :cascade
   add_foreign_key "time_data", "members", column: "enum", primary_key: "enum", name: "fk_id", on_delete: :cascade
 end

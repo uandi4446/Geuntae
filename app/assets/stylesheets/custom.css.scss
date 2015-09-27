@@ -43,6 +43,12 @@ textarea {
 		margin-bottom: 10px;		
 	}
 }
+.left {
+	text-align: left;
+}
+.right {
+	text-align: right;
+}
 
 /*.center h1 {
 	margin-bottom: 10px;
@@ -206,4 +212,9 @@ aside {
 
 .gravatar_edit {
 	margin-top: 15px;
+}
+
+#timeTable {
+	width: 1000px;
+	margin: 0 auto;
 }
