@@ -1,5 +1,5 @@
 class TimeDataController < ApplicationController
-  before_action :set_time_datum, only: [:new, :show, :edit, :update, :destroy]
+  before_action :set_time_datum, only: [:new, :show, :edit, :update, :destroy, :create]
 
   # GET /time_data
   # GET /time_data.json
@@ -41,7 +41,7 @@ class TimeDataController < ApplicationController
         if @avg_time_datum.present?
           # Calculating the avg start time and retunred.
           @avg_time_datum.avg_start_time = cal_avg_time(@avg_time_datum.avg_start_time, @time_datum.start_time)
-          @avg_time_datum.update
+          @avg_time_datum.save
         else
           @avg_time_datum = AvgTimeDatum.new({:enum => @time_datum.enum, :avg_start_time => @time_datum.start_time, :avg_end_time => "18:00"})
           @avg_time_datum.save
@@ -90,13 +90,18 @@ class TimeDataController < ApplicationController
   # Calculating avg_time
   # parameter : avg_time - exisiting average time, today_time - today's recorded time
   def cal_avg_time(avg_time, today_time)
+
     avg_time = avg_time.split(/:/)
     avg_minute = avg_time[0].to_i*60 + avg_time[1].to_i
+
     today_time = today_time.split(/:/)
     today_minute = today_time[0].to_i*60 + today_time[1].to_i
+
     avg_time_for_today = (avg_minute+today_minute)/2
+
     hour = avg_time_for_today / 60
     minute = avg_time_for_today - (hour*60)
+
     return (hour.to_s + ":" + minute.to_s)
   end
 

@@ -5,35 +5,42 @@
 
 		// set value of remain time
 		function remaintimeClock() {
-			document.rtcForm.rtcInput.value = getTimeStamp();
+			document.getElementById('rtcInput').innerHTML = getremainTime();
 			setTimeout("remaintimeClock()", 1000);
 		}
 
-		function getTimeStamp() {
-			var d = new Date();
-
-			var s = leadingZeros(d.getHours(), 2) + ':' + 
-					leadingZeros(d.getMinutes(), 2) + ':' + 
-					leadingZeros(d.getSeconds() , 2);
-
-			return s;
-		}
-
-		function leadingZeros(n, digits) {
-			var zero = '';
-			n = n.toString();
-
-			if (n.length < digits) {
-				for (i=0; i < digits - n.length; i++) {
-					zero += '0';
-				}
+		//Changing "HH:MM" time to seconds
+		function timeToseconds(t) {
+			t = t.split(":");
+			if(t[2] == undefined) {
+				seconds = t[0]*60*60 + t[1]*60
+			} else {
+				//seconds = t[0]*60*60 + t[1]*60 + t[2] : t[2] is defined as string.
+				seconds = t[0]*60*60 + t[1]*60 + t[2]*1				
 			}
-			return zero + n;
+			return seconds;
 		}
 
-		function getAvgEndTimeToSeconds() {
-			var endtime = window.document.getElementById('')
+		//saving average end time and change to seconds
+		function getremainTime() {
+			var endtime = window.document.getElementById('avgEndTime').innerHTML;
+			var t = new Date();
+			var now = t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds();
+			var remaintime = "";
+
+			if( timeToseconds(endtime) < timeToseconds(now)) {
+				return "Time is end!! Go HOME!!!";
+			}
+			else {
+				remaintime = timeToseconds(endtime) - timeToseconds(now);
+				var pad = function(x) { return (x < 10) ? "0"+x : x; }
+
+				return pad(parseInt(remaintime/(60*60))) + ":" +
+						pad(parseInt(remaintime/60%60)) + ":" +
+						pad(parseInt(remaintime%60));
+			}
 		}
+
 		function sendEndTime() {
 
 			var timeElm = window.document.getElementById('time_datum_end_time');
@@ -48,6 +55,9 @@
 		<h1> Welcom! <%= @member.name %><br> </h1>
 		<div class="container">
 			<div class="row">
+				<%= image_tag "#{@member.image_path}" %><br>
+			</div>
+			<div class="row">
 				<div class="col-md-2" style="text-align:center">
 					출근시간<br>
 					<%= @time_datum.start_time.strftime("%H:%M") %>
@@ -59,7 +69,7 @@
 				</div>
 				<div class="col-md-2" style="text-align:center">
 					평균 퇴근시간<br>
-					<%= @avg_time_datum.avg_end_time.strftime("%H:%M") %><br>
+					<p id="avgEndTime"><%= @avg_time_datum.avg_end_time.strftime("%H:%M") %></p>
 				</div>
 			</div>
 			<div class="row" style="text-align:center">
@@ -73,7 +83,9 @@
 			</div>
 
 			<form name="rtcForm">
-				<input type="text" name="rtcInput" size="20" readonly="readonly" />
+				<div class="row" style="text-align:center">
+					<p id="rtcInput"></p>
+				</div>
 			</form>
 			<%= link_to 'Back', time_data_path %>
 		</div>
