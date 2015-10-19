@@ -11,17 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922162856) do
+ActiveRecord::Schema.define(version: 20151019092925) do
 
-  create_table "avg_time_data", force: :cascade do |t|
-    t.string   "enum",           limit: 255, null: false
-    t.time     "avg_start_time",             null: false
-    t.time     "avg_end_time",               null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "avg_time_data", primary_key: "enum", force: :cascade do |t|
+    t.time     "avg_start_time", null: false
+    t.time     "avg_end_time",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
-
-  add_index "avg_time_data", ["enum"], name: "fk_id_avg", using: :btree
 
   create_table "members", primary_key: "enum", force: :cascade do |t|
     t.string   "password_digest", limit: 255,   null: false

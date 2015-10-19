@@ -29,10 +29,6 @@ class TimeDataController < ApplicationController
     end
   end
 
-  # GET /time_data/1/edit
-  def edit
-  end
-
   # POST /time_data
   # POST /time_data.json
   def create

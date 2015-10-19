@@ -1,50 +1,81 @@
-<html>
-	<head>
+<!DOCTYPE html>
+<html lang="en">
+	<head background-color: white>
 		<script>
-		function send_end_time() {
+
+		// set value of remain time
+		function remaintimeClock() {
+			document.rtcForm.rtcInput.value = getTimeStamp();
+			setTimeout("remaintimeClock()", 1000);
+		}
+
+		function getTimeStamp() {
+			var d = new Date();
+
+			var s = leadingZeros(d.getHours(), 2) + ':' + 
+					leadingZeros(d.getMinutes(), 2) + ':' + 
+					leadingZeros(d.getSeconds() , 2);
+
+			return s;
+		}
+
+		function leadingZeros(n, digits) {
+			var zero = '';
+			n = n.toString();
+
+			if (n.length < digits) {
+				for (i=0; i < digits - n.length; i++) {
+					zero += '0';
+				}
+			}
+			return zero + n;
+		}
+
+		function getAvgEndTimeToSeconds() {
+			var endtime = window.document.getElementById('')
+		}
+		function sendEndTime() {
+
 			var timeElm = window.document.getElementById('time_datum_end_time');
 			var t = new Date();
 			timeElm.value = t.getHours() + ":" + t.getMinutes();
 
 			window.document.getElementById('end_time_form').submit();
 		}
-
-		window.onload = function() {
-			var timeTable=document.getElementById("timeTable");
-			if(timeTable.getContext) {
-				var ctx = timeTable.getContext("2d");
-
-				ctx.fillRect(25,25,5,50);
-				ctx.fillRect(975,25,5,50);
-				ctx.fillRect(25,50,950,5);
-			}
-			else alert("It's not supported brower");
-		}
 		</script>
 	</head>
-	<body>
+	<body onload="remaintimeClock()">
 		<h1> Welcom! <%= @member.name %><br> </h1>
-	<div class="container">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2" style="text-align:center">
+					출근시간<br>
+					<%= @time_datum.start_time.strftime("%H:%M") %>
+				</div>
+				<div class="col-md-8" style="left-margin:0px">
+					<span class="iGraph">
+						<span class="gBar"><span class="gAction" style="width:50%"></span></span>
+					</span>
+				</div>
+				<div class="col-md-2" style="text-align:center">
+					평균 퇴근시간<br>
+					<%= @avg_time_datum.avg_end_time.strftime("%H:%M") %><br>
+				</div>
+			</div>
+			<div class="row" style="text-align:center">
+					<% if @time_datum.end_time.present? %>
+						<%= @time_datum.end_time.strftime("%H:%M") %><br>
+					<% end %>
+					<%= form_for @time_datum, :id => 'end_time_form', url: time_datum_path do |t| %>
+						<%= t.hidden_field :end_time, :value => "" %>
+						<button onclick='sendEndTime();'>퇴근!!!!</button>
+					<% end %>
+			</div>
 
-		<div class="left">
-			START TIME<br>
-			<%= @time_datum.start_time.strftime("%H:%M") %><br>
+			<form name="rtcForm">
+				<input type="text" name="rtcInput" size="20" readonly="readonly" />
+			</form>
+			<%= link_to 'Back', time_data_path %>
 		</div>
-		<div class="right">
-			END TIME<br>
-			<% if @time_datum.end_time.present? %>
-				<%= @time_datum.end_time.strftime("%H:%M") %><br>
-			<% end %>
-			<%= form_for @time_datum, :id => 'end_time_form', url: time_datum_path do |t| %>
-				<%= t.hidden_field :end_time, :value => "" %>
-				<button onclick='send_end_time();'>END</button>
-			<% end %>
-		</div>
-		<div class="center">
-			<!-- Table for showing remain time to go off -->
-			<canvas id="timeTable" width="1000" height="100"></canvas><br>
-		</div>
-		<%= link_to 'Back', time_data_path %>
-	</div>
 	</body>
 </html>
