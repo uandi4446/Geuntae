@@ -5,7 +5,11 @@
 
 		// set value of remain time
 		function remaintimeClock() {
+			var per = getpercent();
+
 			document.getElementById('rtcInput').innerHTML = getremainTime();
+			document.getElementById('status').style = "width:" + per + "%";
+			document.getElementById('statusI').style = "width:" + (per - 20) + "%";
 			setTimeout("remaintimeClock()", 1000);
 		}
 
@@ -41,6 +45,22 @@
 			}
 		}
 
+		function getpercent() {
+			var totalTime = timeToseconds(document.getElementById("avgEndTime").innerHTML) - 
+							timeToseconds(document.getElementById("startTime").innerHTML);
+
+			var t = new Date();
+			var now = t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds();
+			now  = timeToseconds(now) - timeToseconds(document.getElementById("startTime").innerHTML);
+
+			if(now > totalTime) {
+				return 100
+			} else {
+				return ((now/totalTime) * 100).toFixed(2);
+
+			}
+		}
+
 		function sendEndTime() {
 
 			var timeElm = window.document.getElementById('time_datum_end_time');
@@ -55,16 +75,18 @@
 		<h1> Welcom! <%= @member.name %><br> </h1>
 		<div class="container">
 			<div class="row">
-				<%= image_tag "#{@member.image_path}" %><br>
+				<div class="col-md-10 col-md-offset-2">
+					<span id="statusI" class="iAction"></span><%= image_tag "#{@member.image_path}" %>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-2" style="text-align:center">
 					출근시간<br>
-					<%= @time_datum.start_time.strftime("%H:%M") %>
+					<p id="startTime"><%= @time_datum.start_time.strftime("%H:%M") %></p>
 				</div>
 				<div class="col-md-8" style="left-margin:0px">
 					<span class="iGraph">
-						<span class="gBar"><span class="gAction" style="width:50%"></span></span>
+						<span class="gBar"><span id="status" class="gAction"></span></span>
 					</span>
 				</div>
 				<div class="col-md-2" style="text-align:center">

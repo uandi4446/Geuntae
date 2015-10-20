@@ -40,7 +40,7 @@ class TimeDataController < ApplicationController
         # Adding avg time for start_time
         if @avg_time_datum.present?
           # Calculating the avg start time and retunred.
-          @avg_time_datum.avg_start_time = cal_avg_time(@avg_time_datum.avg_start_time, @time_datum.start_time)
+          @avg_time_datum.avg_start_time = cal_avg_time(@avg_time_datum.avg_start_time.strftime("%H:%M"), @time_datum.start_time.strftime("%H:%M"))
           @avg_time_datum.save
         else
           @avg_time_datum = AvgTimeDatum.new({:enum => @time_datum.enum, :avg_start_time => @time_datum.start_time, :avg_end_time => "18:00"})
